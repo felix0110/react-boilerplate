@@ -11,6 +11,6 @@ export const scope = 'app.components.Copyright';
 export default defineMessages({
   header: {
     id: `${scope}.header`,
-    defaultMessage: 'This is the Copyright component!',
+    defaultMessage: 'Felix wong@',
   },
 });
