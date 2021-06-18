@@ -16,7 +16,10 @@ const selectSigninDomain = state => state.signin || initialState;
  */
 
 const makeSelectSignin = () =>
-  createSelector(selectSigninDomain, substate => substate);
+  createSelector(
+    selectSigninDomain,
+    substate => substate,
+  );
 
 export default makeSelectSignin;
 export { selectSigninDomain };
