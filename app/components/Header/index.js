@@ -95,6 +95,14 @@ function Header() {
             >
               Features
             </Link>
+            <Link
+              variant="button"
+              color="textPrimary"
+              to="/admin"
+              className={classes.link}
+            >
+              admin
+            </Link>
           </nav>
           <LocaleToggle />
           <Link to="/signin">

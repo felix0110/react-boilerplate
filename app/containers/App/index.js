@@ -15,6 +15,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import SignInPage from 'containers/SigninPage/Loadable';
+import AdminPage from 'containers/AdminPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 
@@ -38,16 +39,33 @@ export default function App() {
       >
         <meta name="description" content="A React.js Boilerplate application" />
       </Helmet>
-      <Header />
 
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/features" component={FeaturePage} />
-        <Route path="/signin" component={SignInPage} />
-        <Route path="" component={NotFoundPage} />
+        <Route exact path="/">
+          <Header />
+          <HomePage />
+          <Footer />
+        </Route>
+        <Route path="/features">
+          <Header />
+          <FeaturePage />
+          <Footer />
+        </Route>
+        <Route path="/signin">
+          <Header />
+          <SignInPage />
+          <Footer />
+        </Route>
+        <Route path="/admin">
+          <AdminPage />
+        </Route>
+        <Route path="">
+          <Header />
+          <NotFoundPage />
+          <Footer />
+        </Route>
       </Switch>
 
-      <Footer />
       <GlobalStyle />
     </AppWrapper>
   );
