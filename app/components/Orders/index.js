@@ -5,10 +5,7 @@
  */
 
 import React from 'react';
-// import Link from '@material-ui/core/Link';
-import { makeStyles } from '@material-ui/core/styles';
-import Title from 'components/Title';
-import Tables from 'components/Tables'
+import Tables from 'components/Tables';
 
 // Generate Table Data
 const createData = (id, date, name, shipTo, paymentMethod, amount) => ({
@@ -20,8 +17,12 @@ const createData = (id, date, name, shipTo, paymentMethod, amount) => ({
   amount,
 });
 const tableheader = [
-  "Date", "Name", "Ship To", "Payment Method", "Sale Amount"
-]
+  'Date',
+  'Name',
+  'Ship To',
+  'Payment Method',
+  'Sale Amount',
+];
 const rows = [
   createData(
     0,
@@ -63,20 +64,62 @@ const rows = [
     'VISA ⠀•••• 5919',
     212.79,
   ),
+  createData(
+    4,
+    '15 Mar, 2019',
+    'Bruce Springsteen',
+    'Long Branch, NJ',
+    'VISA ⠀•••• 5919',
+    212.79,
+  ),
+  createData(
+    4,
+    '15 Mar, 2019',
+    'Bruce Springsteen',
+    'Long Branch, NJ',
+    'VISA ⠀•••• 5919',
+    212.79,
+  ),
+  createData(
+    4,
+    '15 Mar, 2019',
+    'Bruce Springsteen',
+    'Long Branch, NJ',
+    'VISA ⠀•••• 5919',
+    212.79,
+  ),
+  createData(
+    4,
+    '15 Mar, 2019',
+    'Bruce Springsteen',
+    'Long Branch, NJ',
+    'VISA ⠀•••• 5919',
+    212.79,
+  ),
+  createData(
+    4,
+    '15 Mar, 2019',
+    'Bruce Springsteen',
+    'Long Branch, NJ',
+    'VISA ⠀•••• 5919',
+    212.79,
+  ),
+  createData(
+    4,
+    '15 Mar, 2019',
+    'Bruce Springsteen',
+    'Long Branch, NJ',
+    'VISA ⠀•••• 5919',
+    212.79,
+  ),
 ];
 
-const useStyles = makeStyles(theme => ({
-  seeMore: {
-    marginTop: theme.spacing(3),
-  },
-}));
-
 const Orders = () => {
-  const classes = useStyles();
-  const data = { "tableheader": tableheader, "rows": rows }
+  const data = { tableheader, rows };
+
   return (
     <React.Fragment>
-      <Tables data={data} ></Tables>
+      <Tables data={data} />
     </React.Fragment>
   );
 };

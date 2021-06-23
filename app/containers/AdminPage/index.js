@@ -19,7 +19,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
-import Box from '@material-ui/core/Box';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
@@ -27,33 +27,32 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-
-import Copyright from 'components/Copyright';
-import Chart from 'components/Chart';
-import Deposits from 'components/Deposits';
-import Orders from 'components/Orders';
 import SidebarListItem from 'components/SidebarListItem';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import Dashboard from './Dashboard';
+import UserTable from './Page/UserTable';
+
 // import messages from './messages';
 import saga from './saga';
 import reducer from './reducer';
 import makeSelectAdminPage from './selectors';
 import { loadUsers } from './actions';
 
-export function AdminPage({ onClickLoadUser }) {
+export const AdminPage = ({ onClickLoadUser }) => {
   useInjectReducer({ key: 'adminPage', reducer });
   useInjectSaga({ key: 'adminPage', saga });
   useEffect(() => {
     onClickLoadUser();
   }, []);
 
-  const demodata = [{ text: 'user' }, { text: 'admin' }];
+  const demodata = [
+    { text: 'user', path: 'user' },
+    { text: 'admin', path: 'admin' },
+  ];
 
   const drawerWidth = 250;
   const useStyles = makeStyles(theme => ({
@@ -139,7 +138,9 @@ export function AdminPage({ onClickLoadUser }) {
   const handleDrawertoggle = () => {
     setOpen(!open);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const { path } = useRouteMatch();
+
   return (
     <div>
       <Helmet>
@@ -181,6 +182,7 @@ export function AdminPage({ onClickLoadUser }) {
             </IconButton>
           </Toolbar>
         </AppBar>
+
         <Drawer
           variant="permanent"
           classes={{
@@ -200,32 +202,14 @@ export function AdminPage({ onClickLoadUser }) {
           <Divider />
           <List />
         </Drawer>
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container maxWidth="lg" className={classes.container}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper className={fixedHeightPaper}>{<Chart />}</Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper className={fixedHeightPaper}>{<Deposits />}</Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper className={classes.paper}>{<Orders />}</Paper>
-              </Grid>
-            </Grid>
-            <Box pt={4}>
-              <Copyright />
-            </Box>
-          </Container>
-        </main>
+        <Switch>
+          <Route exact path={`${path}`} component={Dashboard} />
+          <Route path={`${path}/user`} component={UserTable} />
+        </Switch>
       </div>
     </div>
   );
-}
+};
 
 AdminPage.propTypes = { onClickLoadUser: PropTypes.func };
 

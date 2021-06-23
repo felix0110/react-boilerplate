@@ -12,39 +12,41 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import PropTypes from 'prop-types';
 import Title from '../Title';
-
 
 const useStyles = makeStyles(theme => ({
   seeMore: {
     marginTop: theme.spacing(3),
   },
 }));
+const createDetail = (key, detail) => (
+  <React.Fragment key={key}>
+    <TableCell>{detail}</TableCell>
+  </React.Fragment>
+);
+const createDetails = details => {
+  const list = [];
+  Object.entries(details).forEach(([key, value], index) => {
+    if (index !== 0) list.push(createDetail(key, value));
+  });
 
+  return <TableRow>{list}</TableRow>;
+};
 const Tables = props => {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Title>Recent Tables</Title>
+      <Title>User</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
             {props.data.tableheader.map(header => (
-              <TableCell>{header}</TableCell>
+              <TableCell key={header}>{header}</TableCell>
             ))}
           </TableRow>
         </TableHead>
-        <TableBody>
-          {props.data.rows.map(row => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{row.amount}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+        <TableBody>{props.data.rows.map(row => createDetails(row))}</TableBody>
       </Table>
       <div className={classes.seeMore}>
         {/* <Link href="#">See more Tables</Link> */}
@@ -53,6 +55,6 @@ const Tables = props => {
   );
 };
 
-Tables.propTypes = {};
+Tables.propTypes = { data: PropTypes.object };
 
 export default Tables;

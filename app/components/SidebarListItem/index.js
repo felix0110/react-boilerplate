@@ -4,10 +4,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SendIcon from '@material-ui/icons/Send';
 import PropTypes from 'prop-types';
-
+import { Link, useRouteMatch } from 'react-router-dom';
+const { path } = useRouteMatch();
 const createItem = item => (
   <React.Fragment key={item.index}>
-    <ListItem button>
+    <ListItem button component={Link} to={`${path}/${item.path}`}>
       <ListItemIcon>
         <SendIcon />
       </ListItemIcon>

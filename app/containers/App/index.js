@@ -56,9 +56,7 @@ export default function App() {
           <SignInPage />
           <Footer />
         </Route>
-        <Route path="/admin">
-          <AdminPage />
-        </Route>
+        <Route path="/admin" component={AdminPage} />
         <Route path="">
           <Header />
           <NotFoundPage />
