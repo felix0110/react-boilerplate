@@ -18,7 +18,7 @@ const selectAdminPageDomain = state => state.adminPage || initialState;
 const makeSelectAdminPage = () =>
   createSelector(
     selectAdminPageDomain,
-    substate => substate,
+    adminState => adminState.users,
   );
 
 export default makeSelectAdminPage;

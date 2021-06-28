@@ -9,17 +9,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
-
-import HomePage from 'containers/HomePage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import SignInPage from 'containers/SigninPage/Loadable';
-import AdminPage from 'containers/AdminPage/Loadable';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
+import ROUTES from 'containers/App/route';
 
 import GlobalStyle from '../../global-styles';
+import { RenderRoutes } from '../../utils/utils';
 
 const AppWrapper = styled.div`
   max-width: 100%
@@ -39,31 +32,7 @@ export default function App() {
       >
         <meta name="description" content="A React.js Boilerplate application" />
       </Helmet>
-
-      <Switch>
-        <Route exact path="/">
-          <Header />
-          <HomePage />
-          <Footer />
-        </Route>
-        <Route path="/features">
-          <Header />
-          <FeaturePage />
-          <Footer />
-        </Route>
-        <Route path="/signin">
-          <Header />
-          <SignInPage />
-          <Footer />
-        </Route>
-        <Route path="/admin" component={AdminPage} />
-        <Route path="">
-          <Header />
-          <NotFoundPage />
-          <Footer />
-        </Route>
-      </Switch>
-
+      <RenderRoutes routes={ROUTES} />
       <GlobalStyle />
     </AppWrapper>
   );

@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Orders from 'components/Orders';
 
+import _ from 'lodash';
+import PropTypes from 'prop-types';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import Tables from 'components/Tables';
+
+import { loadUsers } from 'containers/AdminPage/actions';
 import { makeStyles } from '@material-ui/core/styles';
+import makeSelectAdminPage from '../selectors';
+
+const tableheader = ['email', 'First Name', 'id', 'Last Name', 'username'];
+
 const drawerWidth = 250;
 const useStyles = makeStyles(theme => ({
   root: {
@@ -81,8 +92,12 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
   },
 }));
-const UserTable = () => {
+const UserTable = ({ users, getAllUsers }) => {
   const classes = useStyles();
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
@@ -90,12 +105,50 @@ const UserTable = () => {
         <Grid container spacing={3}>
           {/* Recent Orders */}
           <Grid item xs={12}>
-            <Paper className={classes.paper}>{<Orders />}</Paper>
+            <Paper className={classes.paper}>{createTable(users)}</Paper>
           </Grid>
         </Grid>
       </Container>
     </main>
   );
 };
+const removeArray = value => {
+  const array = [];
+  value.forEach(o => {
+    array.push(_.pickBy(o, oo => !_.isArray(oo)));
+  });
+  return array;
+};
+const createTable = users => {
+  const isArray = _.isArray(users);
+  let result = [];
+  if (isArray) {
+    result = removeArray(users);
+  }
 
-export default UserTable;
+  const data = { tableheader, rows: result };
+
+  return (
+    <React.Fragment>
+      <Tables data={data} />
+    </React.Fragment>
+  );
+};
+
+UserTable.propTypes = { getAllUsers: PropTypes.func, users: PropTypes.object };
+
+const mapDispatchToProps = dispatch => ({
+  getAllUsers: () => {
+    dispatch(loadUsers());
+  },
+});
+const mapStateToProps = createStructuredSelector({
+  users: makeSelectAdminPage(),
+});
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(withConnect)(UserTable);

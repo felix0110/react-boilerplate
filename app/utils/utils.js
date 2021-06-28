@@ -1,5 +1,11 @@
 import { pick, keys } from 'lodash';
-//Sample data
+import Header from 'components/Header';
+import Footer from 'components/Footer';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import PropTypes from 'prop-types';
+// Sample data
 /*
 var data = {
     "key3":"table header" ,
@@ -18,14 +24,42 @@ var model = [{
  */
 
 const mapValueWithTable = (data, model) => {
-    const dataAfterFilter = filterWithModel(data, model);
-    return [model, ...dataAfterFilter]
-}
+  const dataAfterFilter = filterWithModel(data, model);
+  return [model, ...dataAfterFilter];
+};
 
-const filterWithModel = (data, model) => {
-    return data.map(o => pick(o, keys(model)))
-}
+const filterWithModel = (data, model) => data.map(o => pick(o, keys(model)));
 
+const RenderRoutes = ({ routes }) => (
+  <Switch>
+    {routes.map(route => (
+      <RouteWithSubRoutes key={route.key} {...route} />
+    ))}
+    <Route component={NotFoundPage} />
+  </Switch>
+);
 
+const RouteWithSubRoutes = route => {
+  const result = route.isWithHandF ? (
+    <React.Fragment>
+      <Header />
+      <Route
+        path={route.path}
+        exact={route.exact}
+        render={props => <route.component {...props} routes={route.routes} />}
+      />
+      <Footer />
+    </React.Fragment>
+  ) : (
+    <Route
+      path={route.path}
+      exact={route.exact}
+      render={props => <route.component {...props} routes={route.routes} />}
+    />
+  );
+  return result;
+};
 
-export { mapValueWithTable, filterWithModel };
+RenderRoutes.propTypes = { routes: PropTypes.array };
+
+export { mapValueWithTable, filterWithModel, RenderRoutes };

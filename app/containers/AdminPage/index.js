@@ -4,8 +4,8 @@
  *
  */
 
-import React, { memo, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { memo } from 'react';
+
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import clsx from 'clsx';
@@ -32,27 +32,17 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import SidebarListItem from 'components/SidebarListItem';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
-import Dashboard from './Dashboard';
-import UserTable from './Page/UserTable';
+import { RenderRoutes } from '../../utils/utils';
+import ROUTES from './route';
 
 // import messages from './messages';
 import saga from './saga';
 import reducer from './reducer';
 import makeSelectAdminPage from './selectors';
-import { loadUsers } from './actions';
 
-export const AdminPage = ({ onClickLoadUser }) => {
+export const AdminPage = () => {
   useInjectReducer({ key: 'adminPage', reducer });
   useInjectSaga({ key: 'adminPage', saga });
-  useEffect(() => {
-    onClickLoadUser();
-  }, []);
-
-  const demodata = [
-    { text: 'user', path: 'user' },
-    { text: 'admin', path: 'admin' },
-  ];
 
   const drawerWidth = 250;
   const useStyles = makeStyles(theme => ({
@@ -139,8 +129,10 @@ export const AdminPage = ({ onClickLoadUser }) => {
     setOpen(!open);
   };
 
-  const { path } = useRouteMatch();
-
+  const demodata = [
+    { text: 'user', path: 'user' },
+    { text: 'admin', path: 'admin' },
+  ];
   return (
     <div>
       <Helmet>
@@ -202,34 +194,19 @@ export const AdminPage = ({ onClickLoadUser }) => {
           <Divider />
           <List />
         </Drawer>
-        <Switch>
-          <Route exact path={`${path}`} component={Dashboard} />
-          <Route path={`${path}/user`} component={UserTable} />
-        </Switch>
+        <RenderRoutes routes={ROUTES} />
       </div>
     </div>
   );
 };
 
-AdminPage.propTypes = { onClickLoadUser: PropTypes.func };
+AdminPage.propTypes = {};
 
 const mapStateToProps = createStructuredSelector({
   adminPage: makeSelectAdminPage(),
-  // user:
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onClickLoadUser: () => {
-      dispatch(loadUsers());
-    },
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps);
 
 export default compose(
   withConnect,

@@ -21,20 +21,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 const createDetail = (key, detail) => (
-  <React.Fragment key={key}>
+  <React.Fragment>
     <TableCell>{detail}</TableCell>
   </React.Fragment>
 );
 const createDetails = details => {
   const list = [];
-  Object.entries(details).forEach(([key, value], index) => {
-    if (index !== 0) list.push(createDetail(key, value));
+  Object.entries(details).forEach(([key, value]) => {
+    list.push(createDetail(key, value));
   });
 
   return <TableRow>{list}</TableRow>;
 };
 const Tables = props => {
   const classes = useStyles();
+  const isValid = props.data.rows.length > 0;
+
   return (
     <React.Fragment>
       <Title>User</Title>
@@ -42,11 +44,13 @@ const Tables = props => {
         <TableHead>
           <TableRow>
             {props.data.tableheader.map(header => (
-              <TableCell key={header}>{header}</TableCell>
+              <TableCell>{header}</TableCell>
             ))}
           </TableRow>
         </TableHead>
-        <TableBody>{props.data.rows.map(row => createDetails(row))}</TableBody>
+        <TableBody>
+          {isValid ? props.data.rows.map(row => createDetails(row)) : <div />}
+        </TableBody>
       </Table>
       <div className={classes.seeMore}>
         {/* <Link href="#">See more Tables</Link> */}
