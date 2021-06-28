@@ -6,8 +6,7 @@ import SendIcon from '@material-ui/icons/Send';
 import PropTypes from 'prop-types';
 import { Link, useRouteMatch } from 'react-router-dom';
 
-const { path } = useRouteMatch();
-const createItem = item => (
+const createItem = (item, path) => (
   <React.Fragment key={item.index}>
     <ListItem button component={Link} to={`${path}/${item.path}`}>
       <ListItemIcon>
@@ -17,14 +16,15 @@ const createItem = item => (
     </ListItem>
   </React.Fragment>
 );
-const createItemList = items => {
-  const list = items.map(item => createItem(item));
+const createItemList = (items, path) => {
+  const list = items.map(item => createItem(item, path));
 
   return list;
 };
-const SidebarListItem = props => (
-  <React.Fragment>{createItemList(props.items)}</React.Fragment>
-);
+const SidebarListItem = props => {
+  const { path } = useRouteMatch();
+  return <React.Fragment>{createItemList(props.items, path)}</React.Fragment>;
+};
 
 SidebarListItem.propTypes = { items: PropTypes.array };
 
