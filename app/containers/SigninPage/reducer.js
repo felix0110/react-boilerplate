@@ -8,18 +8,18 @@ import { CHANGE_PASSWORD, CHANGE_USERNAME } from './constants';
 
 export const initialState = {
   username: '',
-  password: ''
+  password: '',
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const signinReducer = (state = initialState, action) =>
-  produce(state, (draft) => {
+  produce(state, draft => {
     switch (action.type) {
       case CHANGE_USERNAME:
-        draft.username = aciton.username
+        draft.username = action.username;
         break;
       case CHANGE_PASSWORD:
-        draft.password = aciton.password
+        draft.password = action.password;
         break;
     }
   });

@@ -22,31 +22,27 @@ import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
+// import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 import Form from './Form';
 import Paper from './Paper';
-
 
 import { changeUsername, changePassword } from './actions';
 import { loginRequest } from '../App/actions';
 import { makeSelectUsername, makeSelectPassword } from './selectors';
-import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 
 import reducer from './reducer';
-import saga, { login } from './saga';
+import saga from './saga';
 import messages from './messages';
 
 export const Signin = ({
   username,
   password,
-  loading,
-  error,
-  repos,
   onSubmitForm,
   onChangeUsername,
-  onChangePassword
+  onChangePassword,
 }) => {
-  useInjectReducer({ key, reducer });
-  useInjectSaga({ key, saga });
+  useInjectReducer({ key: 'signin', reducer });
+  useInjectSaga({ key: 'signin', saga });
 
   const useStyles = makeStyles(theme => ({
     avatar: {
@@ -74,7 +70,7 @@ export const Signin = ({
           <Typography component="h1" variant="h5">
             <FormattedMessage {...messages.signin} />
           </Typography>
-          <Form noValidate>
+          <Form onSubmit={onSubmitForm}>
             <FormattedMessage {...messages.email}>
               {email => (
                 <TextField
@@ -93,19 +89,19 @@ export const Signin = ({
               )}
             </FormattedMessage>
             <FormattedMessage {...messages.password}>
-              {password => (
+              {passwordLabel => (
                 <TextField
                   variant="outlined"
                   margin="normal"
                   required
                   fullWidth
                   name="password"
-                  label={password}
+                  label={passwordLabel}
                   type="password"
                   value={password}
                   onChange={onChangePassword}
                   id="password"
-                  autoComplete="current-password"
+                  // autoComplete="current-password"
                 />
               )}
             </FormattedMessage>
@@ -143,34 +139,29 @@ export const Signin = ({
       </Container>
     </div>
   );
-}
+};
 
 Signin.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   onSubmitForm: PropTypes.func,
   username: PropTypes.string,
+  password: PropTypes.string,
   onChangeUsername: PropTypes.func,
-  onChangePassword: PropTypes.func
+  onChangePassword: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   username: makeSelectUsername(),
   password: makeSelectPassword(),
-  loading: makeSelectLoading(),
-  error: makeSelectError(),
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onChangeUsername: e => dispatch(changeUsername(e.target.value)),
-    onChangePassword: e => dispatch(changePassword(e.target.value)),
-    onSubmitForm: e => {
-      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-      dispatch(loginRequest());
-    }
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  onChangeUsername: e => dispatch(changeUsername(e.target.value)),
+  onChangePassword: e => dispatch(changePassword(e.target.value)),
+  onSubmitForm: e => {
+    if (e !== undefined && e.preventDefault) e.preventDefault();
+    dispatch(loginRequest());
+  },
+});
 
 const withConnect = connect(
   mapStateToProps,
