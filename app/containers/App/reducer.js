@@ -8,7 +8,37 @@
  */
 
 import produce from 'immer';
-import { LOAD_REPOS_SUCCESS, LOAD_REPOS, LOAD_REPOS_ERROR } from './constants';
+import {
+  LOAD_REPOS_SUCCESS,
+  LOAD_REPOS,
+  LOAD_REPOS_ERROR,
+  USER_DETAILS_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_RESET,
+  USER_DETAILS_SUCCESS,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAIL,
+  USER_LIST_RESET,
+  USER_LOGIN_FAIL,
+  USER_LOGIN_REQUEST,
+  USER_LOGIN_SUCCESS,
+  USER_LOGOUT,
+  USER_REGISTER_FAIL,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
+  USER_UPDATE_PROFILE_FAIL,
+  USER_UPDATE_PROFILE_REQUEST,
+  USER_UPDATE_PROFILE_SUCCESS,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_FAIL,
+  USER_UPDATE_RESET,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAIL,
+  USER_UPDATE_PROFILE_RESET,
+} from './constants';
 
 // The initial state of the App
 export const initialState = {
@@ -18,6 +48,8 @@ export const initialState = {
   userData: {
     repositories: false,
   },
+  user: {},
+  userInfo: {}
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -39,6 +71,24 @@ const appReducer = (state = initialState, action) =>
       case LOAD_REPOS_ERROR:
         draft.error = action.error;
         draft.loading = false;
+        break;
+
+      case USER_LOGIN_REQUEST:
+        draft.loading = false;
+        break;
+
+      case USER_LOGIN_SUCCESS:
+        draft.loading = false
+        draft.userInfo = action.payload
+        break;
+
+      case USER_LOGIN_FAIL:
+        draft.loading = false
+        draft.error = action.payload
+        break;
+
+      case USER_LOGOUT:
+        draft = initialState
         break;
     }
   });
