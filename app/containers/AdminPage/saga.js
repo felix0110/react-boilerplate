@@ -12,7 +12,7 @@ import request from 'utils/request';
  * Github repos request/response handler
  */
 export function* getUsers() {
-  const requestURL = `https://felix-node-server.herokuapp.com/api/users`;
+  const requestURL = `/api/users`;
 
   try {
     // Call our request helper (see 'utils/request')

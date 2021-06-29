@@ -7,8 +7,13 @@ import PropTypes from 'prop-types';
 import { Link, useRouteMatch } from 'react-router-dom';
 
 const createItem = (item, path) => (
-  <React.Fragment key={item.index}>
-    <ListItem button component={Link} to={`${path}/${item.path}`}>
+  <React.Fragment>
+    <ListItem
+      button
+      key={item.text}
+      component={Link}
+      to={`${path}/${item.path}`}
+    >
       <ListItemIcon>
         <SendIcon />
       </ListItemIcon>

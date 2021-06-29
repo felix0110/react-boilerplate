@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 }));
 const createDetail = (key, detail) => (
   <React.Fragment>
-    <TableCell>{detail}</TableCell>
+    <TableCell key={key}>{detail}</TableCell>
   </React.Fragment>
 );
 const createDetails = details => {
@@ -44,12 +44,16 @@ const Tables = props => {
         <TableHead>
           <TableRow>
             {props.data.tableheader.map(header => (
-              <TableCell>{header}</TableCell>
+              <TableCell key={header}>{header}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {isValid ? props.data.rows.map(row => createDetails(row)) : <div />}
+          {isValid ? (
+            props.data.rows.map(row => createDetails(row))
+          ) : (
+            <React.Fragment />
+          )}
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
