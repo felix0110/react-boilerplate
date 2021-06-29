@@ -21,16 +21,32 @@ import { compose } from 'redux';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+
 import Form from './Form';
 import Paper from './Paper';
-import makeSelectSignin from './selectors';
+
+
+import { changeUsername, changePassword } from './actions';
+import { loginRequest } from '../App/actions';
+import { makeSelectUsername, makeSelectPassword } from './selectors';
+import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
+
 import reducer from './reducer';
-import saga from './saga';
+import saga, { login } from './saga';
 import messages from './messages';
 
-export function Signin() {
-  useInjectReducer({ key: 'signin', reducer });
-  useInjectSaga({ key: 'signin', saga });
+export const Signin = ({
+  username,
+  password,
+  loading,
+  error,
+  repos,
+  onSubmitForm,
+  onChangeUsername,
+  onChangePassword
+}) => {
+  useInjectReducer({ key, reducer });
+  useInjectSaga({ key, saga });
 
   const useStyles = makeStyles(theme => ({
     avatar: {
@@ -69,6 +85,8 @@ export function Signin() {
                   id="email"
                   label={email}
                   name="email"
+                  value={username}
+                  onChange={onChangeUsername}
                   autoComplete="email"
                   autoFocus
                 />
@@ -84,6 +102,8 @@ export function Signin() {
                   name="password"
                   label={password}
                   type="password"
+                  value={password}
+                  onChange={onChangePassword}
                   id="password"
                   autoComplete="current-password"
                 />
@@ -126,16 +146,29 @@ export function Signin() {
 }
 
 Signin.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  onSubmitForm: PropTypes.func,
+  username: PropTypes.string,
+  onChangeUsername: PropTypes.func,
+  onChangePassword: PropTypes.func
 };
 
 const mapStateToProps = createStructuredSelector({
-  signin: makeSelectSignin(),
+  username: makeSelectUsername(),
+  password: makeSelectPassword(),
+  loading: makeSelectLoading(),
+  error: makeSelectError(),
 });
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch,
+    onChangeUsername: e => dispatch(changeUsername(e.target.value)),
+    onChangePassword: e => dispatch(changePassword(e.target.value)),
+    onSubmitForm: e => {
+      if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+      dispatch(loginRequest());
+    }
   };
 }
 

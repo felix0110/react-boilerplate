@@ -4,15 +4,22 @@
  *
  */
 import produce from 'immer';
-import { DEFAULT_ACTION } from './constants';
+import { CHANGE_PASSWORD, CHANGE_USERNAME } from './constants';
 
-export const initialState = {};
+export const initialState = {
+  username: '',
+  password: ''
+};
 
 /* eslint-disable default-case, no-param-reassign */
 const signinReducer = (state = initialState, action) =>
-  produce(state, (/* draft */) => {
+  produce(state, (draft) => {
     switch (action.type) {
-      case DEFAULT_ACTION:
+      case CHANGE_USERNAME:
+        draft.username = aciton.username
+        break;
+      case CHANGE_PASSWORD:
+        draft.password = aciton.password
         break;
     }
   });

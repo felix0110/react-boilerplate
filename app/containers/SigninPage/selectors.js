@@ -5,21 +5,21 @@ import { initialState } from './reducer';
  * Direct selector to the signin state domain
  */
 
-const selectSigninDomain = state => state.signin || initialState;
+const selectSignin = state => state.signin || initialState;
 
-/**
- * Other specific selectors
- */
 
-/**
- * Default selector used by Signin
- */
-
-const makeSelectSignin = () =>
+const makeSelectUsername = () =>
   createSelector(
-    selectSigninDomain,
-    substate => substate,
+    selectSignin,
+    signinState => signinState.username,
   );
 
-export default makeSelectSignin;
-export { selectSigninDomain };
+const makeSelectPassword = () =>
+  createSelector(
+    selectSignin,
+    signinState => signinState.password,
+  );
+
+export { selectSignin, makeSelectPassword, makeSelectUsername };
+
+
