@@ -99,5 +99,22 @@ export const loginRequest = () => {
   };
 }
 
+export const loginSucceed = (token) => {
+  return {
+    type: USER_LOGIN_SUCCESS,
+    token,
+  };
+}
+
+
+export const loginFailed = (error) => {
+  return {
+    type: USER_LOGIN_FAIL,
+    error,
+  };
+}
+
+
+
 
 
