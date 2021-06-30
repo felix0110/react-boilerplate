@@ -20,6 +20,9 @@ const makeSelectPassword = () =>
     signinState => signinState.password,
   );
 
-export { selectSignin, makeSelectPassword, makeSelectUsername };
+const makeSelectToken = () =>
+  createSelector(selectSignin, signinState => signinState.token);
+
+export { selectSignin, makeSelectPassword, makeSelectUsername, makeSelectToken };
 
 

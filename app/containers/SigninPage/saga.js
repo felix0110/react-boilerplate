@@ -1,6 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
 import { USER_LOGIN_REQUEST } from 'containers/App/constants';
-// import { loginRequest } from 'container/App/actions';
+import { loginSucceed } from 'container/App/actions';
 /* import {
   makeSelectUsername,
   makeSelectPassword,
@@ -8,16 +8,16 @@ import { USER_LOGIN_REQUEST } from 'containers/App/constants';
 */
 export function* login() {
   // Select username from store
-  // const username = yield select(makeSelectUsername());
-  // const password = yield select(makeSelectPassword());
-  // const requestURL = `https://api.github.com/users/${username}/repos?type=all&sort=updated`;
+  const username = yield select(makeSelectUsername());
+  const password = yield select(makeSelectPassword());
+  const requestURL = `http://localhost:8080/login`;
 
   try {
     // Call our request helper (see 'utils/request')
-    // const repos = yield call(request, requestURL);
-    //  yield put(reposLoaded(repos, username));
+    const token = yield call(request, requestURL);
+    yield put(loginSucceed(token));
   } catch (err) {
-    // yield put(repoLoadingError(err));
+    yield put(loginFailed(err));
   }
 }
 

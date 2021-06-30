@@ -4,11 +4,12 @@
  *
  */
 import produce from 'immer';
-import { CHANGE_PASSWORD, CHANGE_USERNAME } from './constants';
+import { CHANGE_PASSWORD, CHANGE_USERNAME, SET_TOKEN } from './constants';
 
 export const initialState = {
   username: '',
   password: '',
+  token: ''
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -21,6 +22,8 @@ const signinReducer = (state = initialState, action) =>
       case CHANGE_PASSWORD:
         draft.password = action.password;
         break;
+      case SET_TOKEN:
+        draft.token = action.token;
     }
   });
 

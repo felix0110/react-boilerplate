@@ -37,6 +37,7 @@ import messages from './messages';
 export const Signin = ({
   username,
   password,
+  token,
   onSubmitForm,
   onChangeUsername,
   onChangePassword,
@@ -101,7 +102,7 @@ export const Signin = ({
                   value={password}
                   onChange={onChangePassword}
                   id="password"
-                  // autoComplete="current-password"
+                // autoComplete="current-password"
                 />
               )}
             </FormattedMessage>
@@ -145,6 +146,7 @@ Signin.propTypes = {
   onSubmitForm: PropTypes.func,
   username: PropTypes.string,
   password: PropTypes.string,
+  token: PropTypes.string,
   onChangeUsername: PropTypes.func,
   onChangePassword: PropTypes.func,
 };
