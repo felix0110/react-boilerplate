@@ -1,6 +1,6 @@
 import { takeLatest } from 'redux-saga/effects';
 import { USER_LOGIN_REQUEST } from 'containers/App/constants';
-import { loginSucceed } from 'container/App/actions';
+import { loginSucceed } from 'containers/App/actions';
 /* import {
   makeSelectUsername,
   makeSelectPassword,
