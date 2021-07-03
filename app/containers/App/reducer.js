@@ -49,7 +49,8 @@ export const initialState = {
     repositories: false,
   },
   user: {},
-  userInfo: {}
+  userInfo: {},
+  token: ""
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -80,6 +81,7 @@ const appReducer = (state = initialState, action) =>
       case USER_LOGIN_SUCCESS:
         draft.loading = false
         draft.userInfo = action.payload
+        draft.token = action.token
         break;
 
       case USER_LOGIN_FAIL:

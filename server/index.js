@@ -14,8 +14,15 @@ const ngrok =
 const { resolve } = require('path');
 const app = express();
 
+
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
 // app.use('/api', myApi);
+/* for testing purpose */
+app.use('/login', (req, res) => {
+  res.send({
+    token: 'test123'
+  });
+});
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, {

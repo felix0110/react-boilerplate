@@ -10,6 +10,7 @@ const ROUTES = [
     exact: true,
     component: HomePage,
     isWithHandF: true,
+    isPrivate: true
   },
   {
     path: '/features',
@@ -17,6 +18,7 @@ const ROUTES = [
     exact: true,
     component: FeaturePage,
     isWithHandF: true,
+    isPrivate: false
   },
   {
     path: '/admin',
@@ -24,6 +26,7 @@ const ROUTES = [
     component: AdminPage,
     exact: false,
     isWithHandF: false,
+    isPrivate: false
   },
   {
     path: '/signin',
@@ -31,6 +34,7 @@ const ROUTES = [
     component: SignInPage,
     exact: false,
     isWithHandF: true,
+    isPrivate: false
   },
 ];
 

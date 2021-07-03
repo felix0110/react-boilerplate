@@ -2,7 +2,7 @@ import { pick, keys } from 'lodash';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PropTypes from 'prop-types';
 // Sample data
@@ -40,24 +40,41 @@ const RenderRoutes = ({ routes }) => (
 );
 
 const RouteWithSubRoutes = route => {
+
   const result = route.isWithHandF ? (
     <React.Fragment>
       <Header />
-      <Route
-        path={route.path}
-        exact={route.exact}
-        render={props => <route.component {...props} routes={route.routes} />}
-      />
+      {createRouteComponent()}
       <Footer />
     </React.Fragment>
   ) : (
+      { createRouteComponent() }
+    );
+  return result;
+};
+
+const createRoute = route => {
+  return route.isPrivate ? { createRouteComponent(route) } : { createPrivateRouteComponent(route) }
+};
+
+
+const createRouteComponent = route => {
+  return (<Route
+    path={route.path}
+    exact={route.exact}
+    render={props => <route.component {...props} routes={route.routes} />}
+  />)
+}
+
+const createPrivateRouteComponent = route => {
+  const isAuth = localStorage.getItem("token");
+  return (
     <Route
       path={route.path}
       exact={route.exact}
-      render={props => <route.component {...props} routes={route.routes} />}
-    />
-  );
-  return result;
+      render={props => isAuth ? <route.component {...props} routes={route.routes} /> : <Redirect to={{ pathname: "/signin", state: { from: props.location } }}
+      />}
+    />)
 };
 
 RenderRoutes.propTypes = { routes: PropTypes.array };
