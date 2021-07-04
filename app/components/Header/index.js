@@ -1,5 +1,4 @@
 import React from 'react';
-// import { FormattedMessage } from 'react-intl';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,8 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import LocaleToggle from 'containers/LocaleToggle';
 import { Link } from 'react-router-dom';
-
-// import messages from './messages';
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -58,7 +57,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Header() {
+const Header = () => {
   const classes = useStyles();
   return (
     <div>
@@ -76,7 +75,7 @@ function Header() {
             noWrap
             className={classes.toolbarTitle}
           >
-            Felix Wong
+            <FormattedMessage {...messages.title} />
           </Typography>
           <nav>
             <Link
@@ -114,6 +113,6 @@ function Header() {
       </AppBar>
     </div>
   );
-}
+};
 
 export default Header;

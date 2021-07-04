@@ -12,6 +12,10 @@ export default defineMessages({
     id: `${scope}.home`,
     defaultMessage: 'Home',
   },
+  title: {
+    id: `${scope}.tile`,
+    defaultMessage: 'Portfolio',
+  },
   features: {
     id: `${scope}.features`,
     defaultMessage: 'Features',

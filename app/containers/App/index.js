@@ -23,17 +23,17 @@ const AppWrapper = styled.div`
   flex-direction: column;
 `;
 
-export default function App() {
-  return (
-    <AppWrapper>
-      <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
-      >
-        <meta name="description" content="A React.js Boilerplate application" />
-      </Helmet>
-      <RenderRoutes routes={ROUTES} />
-      <GlobalStyle />
-    </AppWrapper>
-  );
-}
+const App = () => (
+  <AppWrapper>
+    <Helmet
+      titleTemplate="%s - React.js Boilerplate"
+      defaultTitle="Felix's Portfolio"
+    >
+      <meta name="description" content="A React.js Boilerplate application" />
+    </Helmet>
+    <RenderRoutes routes={ROUTES} />
+    <GlobalStyle />
+  </AppWrapper>
+);
+
+export default App;
