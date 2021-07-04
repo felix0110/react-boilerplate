@@ -2,9 +2,10 @@ import { pick, keys } from 'lodash';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import PropTypes from 'prop-types';
+
 // Sample data
 /*
 var data = {
@@ -40,43 +41,53 @@ const RenderRoutes = ({ routes }) => (
 );
 
 const RouteWithSubRoutes = route => {
-
   const result = route.isWithHandF ? (
     <React.Fragment>
       <Header />
-      {createRouteComponent()}
+      {createRouteComponent(route)}
       <Footer />
     </React.Fragment>
   ) : (
-      { createRouteComponent() }
-    );
+    createRouteComponent(route)
+  );
   return result;
 };
 
-const createRoute = route => {
-  return route.isPrivate ? { createRouteComponent(route) } : { createPrivateRouteComponent(route) }
-};
+// const createRoute = route =>
+//   route.isPrivate
+//     ? createRouteComponent(route)
+//     : createPrivateRouteComponent(route);
 
-
-const createRouteComponent = route => {
-  return (<Route
+const createRouteComponent = route => (
+  <Route
     path={route.path}
     exact={route.exact}
     render={props => <route.component {...props} routes={route.routes} />}
-  />)
-}
+  />
+);
 
-const createPrivateRouteComponent = route => {
-  const isAuth = localStorage.getItem("token");
-  return (
-    <Route
-      path={route.path}
-      exact={route.exact}
-      render={props => isAuth ? <route.component {...props} routes={route.routes} /> : <Redirect to={{ pathname: "/signin", state: { from: props.location } }}
-      />}
-    />)
+// const createPrivateRouteComponent = route => {
+//   const isAuth = localStorage.getItem('token');
+
+//   return (
+//     <Route
+//       path={route.path}
+//       exact={route.exact}
+//       render={props =>
+//         isAuth ? (
+//           <route.component {...props} routes={route.routes} />
+//         ) : (
+//           <Redirect
+//             to={{ pathname: '/signin', state: { from: props.location } }}
+//           />
+//         )
+//       }
+//     />
+//   );
+// };
+
+RenderRoutes.propTypes = {
+  routes: PropTypes.array,
 };
-
-RenderRoutes.propTypes = { routes: PropTypes.array };
 
 export { mapValueWithTable, filterWithModel, RenderRoutes };

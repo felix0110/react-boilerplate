@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 const H1 = styled.h1`
-  font-size: 2em;
-  margin-bottom: 0.25em;
+  font-size: 4rem;
+  text-align: center;
+  line-height: 20px;
 `;
 
 export default H1;

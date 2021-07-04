@@ -1,16 +1,17 @@
-import HomePage from 'containers/HomePage/Loadable';
+// import HomePage from 'containers/HomePage/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import SignInPage from 'containers/SigninPage/Loadable';
 import AdminPage from 'containers/AdminPage/Loadable';
+import LandingPage from 'containers/LandingPage/Loadable';
 
 const ROUTES = [
   {
     path: '/',
     key: 'HOME',
     exact: true,
-    component: HomePage,
+    component: LandingPage,
     isWithHandF: true,
-    isPrivate: true
+    isPrivate: false,
   },
   {
     path: '/features',
@@ -18,7 +19,7 @@ const ROUTES = [
     exact: true,
     component: FeaturePage,
     isWithHandF: true,
-    isPrivate: false
+    isPrivate: false,
   },
   {
     path: '/admin',
@@ -26,7 +27,7 @@ const ROUTES = [
     component: AdminPage,
     exact: false,
     isWithHandF: false,
-    isPrivate: false
+    isPrivate: false,
   },
   {
     path: '/signin',
@@ -34,7 +35,7 @@ const ROUTES = [
     component: SignInPage,
     exact: false,
     isWithHandF: true,
-    isPrivate: false
+    isPrivate: false,
   },
 ];
 
