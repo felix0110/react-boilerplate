@@ -31,6 +31,10 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  textBody: {
+    marginTop: '5vh',
+    marginBottom: '5vh',
+  },
 });
 
 const Header = () => {
@@ -46,7 +50,7 @@ const Header = () => {
             </H2>
           </Fade>
           <Fade in>
-            <div className="heading-wrapper">
+            <div>
               <H1>
                 <FormattedMessage {...messages.lineOneMessage} />
               </H1>
@@ -59,7 +63,7 @@ const Header = () => {
             </div>
           </Fade>
           <Fade in>
-            <p>
+            <p className={classes.textBody}>
               {' '}
               <FormattedMessage {...messages.bodyMessage} />
             </p>
