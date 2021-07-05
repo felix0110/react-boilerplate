@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-const GalleryCard = () => {
+const GalleryCard = props => {
   const classes = useStyles();
 
   return (
@@ -25,16 +25,14 @@ const GalleryCard = () => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="https://images.unsplash.com/photo-1492171983775-a51717616c0d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NjB8fHBhc3RlbHxlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=400&q=60"
-          title="Contemplative Reptile"
+          image={props.img}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            {props.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {props.para}
           </Typography>
         </CardContent>
       </CardActionArea>
