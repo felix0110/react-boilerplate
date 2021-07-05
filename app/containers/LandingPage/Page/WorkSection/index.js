@@ -1,5 +1,6 @@
 import React from 'react';
 import { Fade } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import Card from 'components/GalleryCard'
 import data from './data'
 import H1 from 'components/H1'
@@ -34,29 +35,32 @@ const useStyles = makeStyles({
 });
 
 
-const WorkSection = () => (
-  <div className={classes.section} id="work">
-    <div className={classes.container}>
-      <div className={classes.workContainer}>
-        <Fade in>
-          <h1>Work</h1>
-        </Fade>
-
-        <div className={classes.grid}>
-          <Fade in={true}>
-            {data.map(project => (
-              <Card
-                key={project.id}
-                title={project.title}
-                para={project.para}
-                img={project.img}
-              />
-            ))}
+const WorkSection = () => {
+  const classes = useStyles();
+  return (
+    <div className={classes.section} id="work">
+      <div className={classes.container}>
+        <div className={classes.workContainer}>
+          <Fade in>
+            <h1>Work</h1>
           </Fade>
+
+          <div className={classes.grid}>
+            <Fade in={true}>
+              {data.map(project => (
+                <Card
+                  key={project.id}
+                  title={project.title}
+                  para={project.para}
+                  img={project.img}
+                />
+              ))}
+            </Fade>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  )
+};
 
 export default WorkSection;
