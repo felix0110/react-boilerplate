@@ -8,28 +8,28 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.container.LandingPage.Page.WorkSection';
 
 export default defineMessages({
-  greetingMessage: {
-    id: `${scope}.greeting.message`,
-    defaultMessage: `Hi, I'm Felix Wong ${' '} 👋 `,
+  paraOneMessage: {
+    id: `${scope}.ParaOne.message`,
+    defaultMessage: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.`,
   },
-  lineOneMessage: {
-    id: `${scope}.lineOne.message`,
-    defaultMessage: `Building digital`,
+  paraTwoMessage: {
+    id: `${scope}.ParaTwo.message`,
+    defaultMessage: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.`,
   },
-  lineTwoMessage: {
-    id: `${scope}.lineTwo.message`,
-    defaultMessage: `products, brands`,
+  paraThreeMessage: {
+    id: `${scope}.ParaThree.message`,
+    defaultMessage: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.`,
   },
-  lineThreeMessage: {
-    id: `${scope}.lineThree.message`,
-    defaultMessage: `and experience`,
+  paraFourMessage: {
+    id: `${scope}.ParaFour.message`,
+    defaultMessage: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.`,
   },
-  bodyMessage: {
-    id: `${scope}.body.message`,
-    defaultMessage: `and experience`,
+  paraFiveMessage: {
+    id: `${scope}.ParaFive.message`,
+    defaultMessage: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.`,
   },
-  mailMessage: {
-    id: `${scope}.mail.message`,
-    defaultMessage: `and experience`,
+  paraSixMessage: {
+    id: `${scope}.ParaSix.message`,
+    defaultMessage: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.`,
   },
 });

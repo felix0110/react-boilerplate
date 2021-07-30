@@ -1,5 +1,6 @@
 import React from 'react';
-import { Fade, Button } from '@material-ui/core';
+import Fade from '@material-ui/core/Fade';
+import Button from '@material-ui/core/Button';
 import H2 from 'components/H2';
 import H1 from 'components/H1';
 import { FormattedMessage } from 'react-intl';
